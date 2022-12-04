@@ -13,7 +13,7 @@ export class Header extends React.Component {
         }`}
       >
         <div className={styles.logoBar}>
-          <img className={styles.logo} src="/logo.png" alt="logo" />
+          <img className={styles.logo} src="/images/logo.png" alt="logo" />
         </div>
         <div className={styles.menu}>
           <ul className={styles.menuLink}>

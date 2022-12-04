@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Header from '../../components/Header'
+import Demo from '../../components/Demo'
 
 export class Simulator extends React.Component {
   render() {
@@ -11,6 +12,7 @@ export class Simulator extends React.Component {
         <br />
         <br />
         <br />
+        <Demo />
         <br />
         <br />
         <br />
