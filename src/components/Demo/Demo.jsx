@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ClothingBox from '../CothingBox'
-import styles from './styles/index.module.scss'
+import styles from './styles/demo.module.scss'
 
 export class Demo extends React.Component {
   render() {

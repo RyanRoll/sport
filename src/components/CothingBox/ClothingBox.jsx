@@ -1,83 +1,40 @@
 import React from 'react'
-import classnames from 'classnames'
 
-import { OBJECT_ICONS } from './icons'
-import styles from './styles/index.module.scss'
+import Category from './Category'
+import Pants from './Pants'
+import styles from './styles/clothingBox.module.scss'
 
 export class ClothingBox extends React.Component {
-  objects = [
-    {
-      name: 't-shirt',
-      id: 0,
-      label: 'シャツ',
-      hasCompleted: false,
-      icon: OBJECT_ICONS[0],
-    },
-    {
-      name: 'pants',
-      id: 1,
-      label: 'パンツ',
-      hasCompleted: false,
-      icon: OBJECT_ICONS[1],
-    },
-    {
-      name: 'socks',
-      id: 2,
-      label: 'ソックス',
-      hasCompleted: false,
-      icon: OBJECT_ICONS[2],
-    },
-    {
-      name: 'team-name',
-      id: 3,
-      label: 'チーム名',
-      hasCompleted: false,
-      icon: OBJECT_ICONS[3],
-    },
-    {
-      name: 'number',
-      id: 4,
-      label: '番号',
-      hasCompleted: false,
-      icon: OBJECT_ICONS[4],
-    },
-    {
-      name: 'name',
-      id: 5,
-      label: '番背・個人名号',
-      hasCompleted: false,
-      icon: OBJECT_ICONS[5],
-    },
-    {
-      name: 'badge',
-      id: 6,
-      label: 'エンブレム',
-      hasCompleted: false,
-      icon: OBJECT_ICONS[6],
-    },
-  ]
-  renderObjects = () => {
-    return this.objects.map((item) => {
-      const { id, label, icon, hasCompleted } = item
-      const itemCls = classnames(styles.item, {
-        [styles.badgeOk]: hasCompleted,
-      })
-      return (
-        <div className={itemCls} key={id}>
-          <img className={styles.icon} src={icon} alt={label} />
-          <label className={styles.label}>{label}</label>
-        </div>
-      )
-    })
+  constructor(props) {
+    super(props)
+    this.state = {
+      category: props.category,
+    }
   }
   render() {
-    return (
-      <div className={styles.box}>
-        <h1 className={styles.title}>カスタマイズするアイテムを選ぶ</h1>
-        <div className={styles.content}>{this.renderObjects()}</div>
-      </div>
-    )
+    return <div className={styles.box}>{this.renderPanels()}</div>
   }
+  renderPanels = () => {
+    const { category } = this.state
+    switch (category) {
+      case 't-shirt':
+        break
+      case 'pants':
+        return <Pants changeCategory={this.changeCategory} />
+      case 'menu':
+      default:
+        return <Category changeCategory={this.changeCategory} />
+    }
+  }
+  changeCategory = (category) => {
+    this.setState({
+      category,
+    })
+  }
+}
+
+ClothingBox.defaultProps = {
+  category: 'menu',
 }
 
 export default ClothingBox
