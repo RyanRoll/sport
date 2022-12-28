@@ -1,0 +1,53 @@
+.group {
+}
+
+.groupName {
+  border: 1px solid hsla(0, 0%, 100%, 0.5);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 100%;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.6;
+  color: #fff;
+}
+
+.typeBlock {
+}
+
+.type {
+  width: 98px;
+  height: 98px;
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  background: #e1e1e1;
+}
+
+.typeIcon {
+  width: 100%;
+  height: auto;
+  filter: brightness(85%);
+}
+
+.header {
+  display: block;
+  float: left;
+  width: 100%;
+  height: 28px;
+  line-height: 28px;
+  background: #888;
+  color: #fff;
+  padding: 0 6px;
+  font-size: 80%;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.selected {
+  border: 3px solid #d5247d;
+  filter: brightness(100%);
+  background: #fff;
+}

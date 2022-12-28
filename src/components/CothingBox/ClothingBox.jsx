@@ -2,6 +2,8 @@ import React from 'react'
 
 import Category from './Category'
 import Pants from './Pants'
+import TeamName from './TeamName'
+
 import styles from './styles/clothingBox.module.scss'
 
 export class ClothingBox extends React.Component {
@@ -21,6 +23,8 @@ export class ClothingBox extends React.Component {
         break
       case 'pants':
         return <Pants changeCategory={this.changeCategory} />
+      case 'team-name':
+        return <TeamName changeCategory={this.changeCategory} />
       case 'menu':
       default:
         return <Category changeCategory={this.changeCategory} />

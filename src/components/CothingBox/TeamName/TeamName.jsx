@@ -2,10 +2,11 @@ import React from 'react'
 
 import Navigation from '../Navigation'
 import Selector from '../Selector'
+import { teamNameItems } from './data'
 
-import styles from './styles/pants.module.scss'
+import styles from './styles/teamName.module.scss'
 
-export class Pants extends React.Component {
+export class TeamName extends React.Component {
   state = {
     feature: 'style', // 'style' | 'color' | 'icon'
   }
@@ -35,43 +36,11 @@ export class Pants extends React.Component {
     return (
       <>
         <h1 className={styles.title}>
-          カ元にするパンツデザインを選んでください
+          名前の位置/有無を選択してください
           <i className={styles.icon}></i>
         </h1>
         <div className={styles.content}>
-          <Selector
-            items={[
-              {
-                displayName: true,
-                types: [
-                  {
-                    name: "Presser'23",
-                    icon: 'https://xu.sfidasports.com/assets2/thumbs/pants_thumbs09.png',
-                  },
-                  {
-                    name: "NOISER'22",
-                    icon: 'https://xu.sfidasports.com/assets2/thumbs/pants_thumbs08.png',
-                  },
-                  {
-                    name: "HEX LINE'21",
-                    icon: 'https://xu.sfidasports.com/assets2/thumbs/pants_thumbs06.png',
-                  },
-                  {
-                    name: "HEX-BOLD'21",
-                    icon: 'https://xu.sfidasports.com/assets2/thumbs/pants_thumbs07.png',
-                  },
-                  {
-                    name: 'BASIC05 CENTERLINE',
-                    icon: 'https://xu.sfidasports.com/assets2/thumbs/pants_thumbs01.png',
-                  },
-                  {
-                    name: 'BASIC08 WAVE02',
-                    icon: 'https://xu.sfidasports.com/assets2/thumbs/pants_thumbs03.png',
-                  },
-                ],
-              },
-            ]}
-          />
+          <Selector items={teamNameItems} />
         </div>
       </>
     )
@@ -132,4 +101,4 @@ export class Pants extends React.Component {
   }
 }
 
-export default Pants
+export default TeamName
