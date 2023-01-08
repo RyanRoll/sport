@@ -40,6 +40,7 @@ export class Pants extends React.Component {
         </h1>
         <div className={styles.content}>
           <Selector
+            dataKey="pants.style"
             items={[
               {
                 displayName: true,

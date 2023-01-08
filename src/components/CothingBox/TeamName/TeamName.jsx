@@ -40,7 +40,7 @@ export class TeamName extends React.Component {
           <i className={styles.icon}></i>
         </h1>
         <div className={styles.content}>
-          <Selector items={teamNameItems} />
+          <Selector dataKey="team-name.style" items={teamNameItems} />
         </div>
       </>
     )

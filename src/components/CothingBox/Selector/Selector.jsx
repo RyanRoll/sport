@@ -1,18 +1,17 @@
 import React from 'react'
 import classnames from 'classnames'
 
+import DemoContext from '../../Demo/context'
+
 import styles from './styles/selector.module.scss'
 
 export class Selector extends React.Component {
-  state = {
-    selectedType: {},
-  }
+  static contextType = DemoContext
   render() {
     const { items } = this.props
-    const { selectedType } = this.state
     return items.map((group, index) => {
       const { displayName = false, header, types = [] } = group
-      const selectedName = selectedType[index]
+      const selectedName = this.getSelectedData(index)
       return (
         <div key={index} className={styles.group}>
           {displayName && <h2 className={styles.groupName}>{selectedName}</h2>}
@@ -38,11 +37,43 @@ export class Selector extends React.Component {
     })
   }
   onClickType = (index, name) => {
-    const { selectedType } = this.state
-    selectedType[index] = name
-    this.setState({
-      selectedType,
-    })
+    const { dataKey } = this.props
+    if (dataKey) {
+      const { skinData, setSkinData } = this.context
+      const splits = dataKey.split('.')
+      const last = splits.pop()
+      let reference = skinData
+      splits.forEach((key) => {
+        if (!reference[key]) {
+          reference[key] = {}
+        }
+        reference = reference[key]
+      })
+      // const data = (reference[last] = []) // this is error, the data will be convered
+      const data = reference[last] ?? []
+      data[index] = name
+      reference[last] = data
+      setSkinData(skinData)
+    }
+  }
+  getSelectedData = (index) => {
+    const { dataKey } = this.props
+    if (dataKey) {
+      const { skinData } = this.context
+      const splits = dataKey.split('.')
+      let reference = skinData
+      splits.every((key) => {
+        if (!reference[key]) {
+          reference = null
+          return false
+        }
+        reference = reference[key]
+        return true
+      })
+      if (Array.isArray(reference)) {
+        return reference[index]
+      }
+    }
   }
 }
 
