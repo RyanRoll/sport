@@ -1,0 +1,48 @@
+.palette {
+  width: 415px;
+  height: 450px;
+  position: relative;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+.color {
+  border-radius: 10px;
+  display: inline-block;
+  width: 58px;
+  height: 58px;
+}
+
+.majorColor {
+  color: #fff;
+  display: flex;
+  .color {
+    width: 85px;
+    height: 85px;
+  }
+
+  .text {
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 90%;
+    padding-left: 10px;
+    flex-direction: column;
+  }
+}
+
+.colors {
+  margin-top: 20px;
+  .color {
+    border: 2.5px solid transparent;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+  .selected {
+    box-shadow: 0 0 15px #d5247d;
+    border: 2.5px solid #fff;
+  }
+}

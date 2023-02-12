@@ -1,0 +1,44 @@
+.main {
+  display: flex;
+}
+
+.area {
+  min-width: 78px;
+  width: 15%;
+  margin-right: 1%;
+  border: 1px solid hsla(0, 0%, 100%, 0.5);
+  border-radius: 8px;
+  padding: 10px 5px;
+  margin-bottom: 15px;
+  height: 458px;
+}
+
+.areaItem {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.areaColor {
+  margin: 0 7%;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  border-radius: 10px;
+  border: 2.5px solid #fff;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.areaSelected {
+  box-shadow: 0 0 15px #d5247d;
+}
+
+.areaName {
+  font-size: 60%;
+  line-height: 1.4;
+  color: #fff;
+}
