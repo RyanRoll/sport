@@ -3,10 +3,12 @@ import React from 'react'
 import Navigation from '../Navigation'
 import Selector from '../Selector'
 import { Colors, PALETTE_TYPES } from '../Colors'
+import DemoContext from '../../Demo/context'
 
 import styles from './styles/pants.module.scss'
 
 export class Pants extends React.Component {
+  static contextType = DemoContext
   state = {
     feature: 'style', // 'style' | 'color' | 'icon'
   }
@@ -45,7 +47,7 @@ export class Pants extends React.Component {
             items={[
               {
                 displayName: true,
-                types: [
+                options: [
                   {
                     name: "Presser'23",
                     icon: 'https://xu.sfidasports.com/assets2/thumbs/pants_thumbs09.png',
@@ -79,39 +81,22 @@ export class Pants extends React.Component {
     )
   }
   renderColor = () => {
+    const { skinData } = this.context
+    const colors = skinData.pants?.colors
+    let colorsData = DEFAULT_COLORS_DATA
+    if (Array.isArray(colors)) {
+      colorsData = DEFAULT_COLORS_DATA.map((item, index) => {
+        return {
+          ...item,
+          ...colors[index],
+        }
+      })
+    }
     return (
       <>
         <h1 className={styles.title}>パンツの配色を選んでください</h1>
         <div className={styles.content}>
-          <Colors
-            colors={[
-              {
-                name: 'ベース',
-                color: '#ffffff',
-                colorName: 'ホワイト',
-                palette: PALETTE_TYPES.NORMAL,
-              },
-              {
-                name: 'サブカラー①',
-                color: '#058893',
-                colorName: 'レイクブルー',
-                palette: PALETTE_TYPES.NORMAL,
-              },
-              {
-                name: 'サブカラー②',
-                color: '#5e3b68',
-                colorName: 'パープル（濃）',
-                palette: PALETTE_TYPES.ADVANCED,
-              },
-              {
-                name: 'サブカラー③',
-                color: '#c1343c',
-                colorName: 'レッド',
-                palette: PALETTE_TYPES.NORMAL,
-              },
-            ]}
-            onChangeColor={this.onChangeColor}
-          />
+          <Colors data={colorsData} onChangeColor={this.onChangeColor} />
         </div>
       </>
     )
@@ -120,7 +105,30 @@ export class Pants extends React.Component {
     return (
       <>
         <h1 className={styles.title}>ロゴカラーを選択してください</h1>
-        <div className={styles.content}>Icon</div>
+        <div className={styles.content}>
+          <Selector
+            dataKey="pants.icon"
+            items={[
+              {
+                displayName: true,
+                options: [
+                  {
+                    name: 'GOLD',
+                    icon: 'https://xu.sfidasports.com/assets2/thumbs/logocolor_sample01.png',
+                  },
+                  {
+                    name: 'BLACK',
+                    icon: 'https://xu.sfidasports.com/assets2/thumbs/logocolor_sample02.png',
+                  },
+                  {
+                    name: 'WHITE',
+                    icon: 'https://xu.sfidasports.com/assets2/thumbs/logocolor_sample03.png',
+                  },
+                ],
+              },
+            ]}
+          />
+        </div>
       </>
     )
   }
@@ -159,12 +167,50 @@ export class Pants extends React.Component {
         break
       case 'icon':
         this.props.changeCategory('menu')
+        const { skinData, setSkinData } = this.context
+        skinData.pants.done = true
+        setSkinData(skinData)
         break
     }
   }
-  onChangeColor = (color, name, index) => {
-    console.log('onChangeColor', color, name, index)
+  onChangeColor = (name, color, colorName, index) => {
+    const { skinData, setSkinData } = this.context
+    const { pants } = skinData
+    pants.colors = pants.colors ?? []
+    pants.colors[index] = {
+      name,
+      color,
+      colorName,
+    }
+    setSkinData(skinData)
   }
 }
+
+export const DEFAULT_COLORS_DATA = [
+  {
+    name: 'ベース',
+    color: '#ffffff',
+    colorName: 'ホワイト',
+    palette: PALETTE_TYPES.NORMAL,
+  },
+  {
+    name: 'サブカラー①',
+    color: '#058893',
+    colorName: 'レイクブルー',
+    palette: PALETTE_TYPES.NORMAL,
+  },
+  {
+    name: 'サブカラー②',
+    color: '#5e3b68',
+    colorName: 'パープル（濃）',
+    palette: PALETTE_TYPES.ADVANCED,
+  },
+  {
+    name: 'サブカラー③',
+    color: '#c1343c',
+    colorName: 'レッド',
+    palette: PALETTE_TYPES.NORMAL,
+  },
+]
 
 export default Pants

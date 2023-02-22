@@ -8,25 +8,25 @@ import styles from './styles/colors.module.scss'
 export { PALETTE_TYPES }
 
 export const Colors = (props) => {
-  const { colors } = props
-  const [activeArea, setActiveArea] = useState([0, props.colors[0]])
+  const { data } = props
+  const [activeIndex, setActiveIndex] = useState(0)
   const onClickArea = useCallback(
-    (index, data) => {
-      setActiveArea([index, data])
+    (index) => {
+      setActiveIndex(index)
     },
-    [setActiveArea],
+    [setActiveIndex],
   )
-  const [activeIndex, activeAreaData] = activeArea
+  const activeAreaData = data[activeIndex]
   return (
     <div className={styles.main}>
       <div className={styles.area}>
-        {colors.map((data, index) => {
-          const { name, color } = data
+        {data.map((item, index) => {
+          const { name, color } = item
           return (
             <div
               className={styles.areaItem}
-              key={name}
-              onClick={onClickArea.bind(null, index, data)}
+              key={`${color}::${index}`}
+              onClick={onClickArea.bind(null, index)}
             >
               <span
                 className={classnames(styles.areaColor, {
@@ -44,6 +44,7 @@ export const Colors = (props) => {
           selectedColor={activeAreaData.color}
           selectedName={activeAreaData.name}
           type={activeAreaData.palette}
+          colorName={activeAreaData.colorName}
           index={activeIndex}
           onChangeColor={props.onChangeColor}
         />
@@ -53,7 +54,7 @@ export const Colors = (props) => {
 }
 
 Colors.defaultProps = {
-  colors: [
+  data: [
     {
       name: 'ベース',
       color: '#ffffff',

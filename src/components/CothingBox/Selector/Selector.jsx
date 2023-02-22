@@ -10,28 +10,58 @@ export class Selector extends React.Component {
   render() {
     const { items } = this.props
     return items.map((group, index) => {
-      const { displayName = false, header, types = [] } = group
+      const { displayName = false, header, options = [], type = 'icon' } = group
       const selectedName = this.getSelectedData(index)
+      let elements
+      switch (type) {
+        case 'list': {
+          elements = this.renderList(options, selectedName, index)
+          break
+        }
+        default:
+        case 'icon': {
+          elements = this.renderIcons(options, selectedName, index)
+          break
+        }
+      }
       return (
         <div key={index} className={styles.group}>
           {displayName && <h2 className={styles.groupName}>{selectedName}</h2>}
           {header && <h3 className={styles.header}>{header}</h3>}
-          <div className={styles.typeBlock}>
-            {types.map((type, typeIndex) => {
-              const { name, icon } = type
-              return (
-                <span
-                  key={typeIndex}
-                  className={classnames(styles.type, {
-                    [styles.selected]: selectedName === name,
-                  })}
-                  onClick={this.onClickType.bind(this, index, name)}
-                >
-                  {<img src={icon} className={styles.typeIcon} alt=""></img>}
-                </span>
-              )
-            })}
-          </div>
+          <div className={styles.typeBlock}>{elements}</div>
+        </div>
+      )
+    })
+  }
+  renderIcons = (options, selectedName, index) => {
+    return options.map((option, optionIndex) => {
+      const { name, icon } = option
+      return (
+        <span
+          key={optionIndex}
+          className={classnames(styles.option, {
+            [styles.selected]: selectedName === name,
+          })}
+          onClick={this.onClickType.bind(this, index, name)}
+        >
+          {<img src={icon} className={styles.optionIcon} alt=""></img>}
+        </span>
+      )
+    })
+  }
+  renderList = (options, selectedName, index) => {
+    return options.map((option, optionIndex) => {
+      const { name, text, style } = option
+      return (
+        <div
+          key={optionIndex}
+          className={classnames(styles.listOption, {
+            [styles.selected]: selectedName === name,
+          })}
+          onClick={this.onClickType.bind(this, index, name)}
+          style={style}
+        >
+          {text}
         </div>
       )
     })
@@ -57,7 +87,7 @@ export class Selector extends React.Component {
     }
   }
   getSelectedData = (index) => {
-    const { dataKey } = this.props
+    const { dataKey, items } = this.props
     if (dataKey) {
       const { skinData } = this.context
       const splits = dataKey.split('.')
@@ -74,6 +104,7 @@ export class Selector extends React.Component {
         return reference[index]
       }
     }
+    return items?.[index]?.options?.[0]?.name
   }
 }
 

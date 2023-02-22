@@ -7,7 +7,11 @@ import styles from './styles/demo.module.scss'
 
 export class Demo extends React.Component {
   state = {
-    skinData: {},
+    skinData: {
+      pants: {},
+      teamName: {},
+      number: {},
+    },
   }
   constructor(props) {
     super(props)

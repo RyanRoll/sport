@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import classnames from 'classnames'
 
 import styles from './styles/palette.module.scss'
 
 export const Palette = (props) => {
-  const { type, selectedColor, selectedName, onChangeColor, index } = props
+  const { type, selectedColor, selectedName, onChangeColor, index, colorName } =
+    props
   let colorsData = PALETTE_NORMAL
   switch (type) {
     case PALETTE_TYPES.NORMAL:
@@ -16,14 +17,6 @@ export const Palette = (props) => {
       colorsData = PALETTE_ADVANCED
       break
   }
-
-  const onClickColor = useCallback(
-    (color, name) => {
-      onChangeColor?.(color, name, index)
-    },
-    [index, onChangeColor],
-  )
-
   return (
     <div className={styles.palette}>
       <div className={styles.majorColor}>
@@ -46,7 +39,7 @@ export const Palette = (props) => {
               style={{ background: color }}
               title={name}
               key={color}
-              onClick={onClickColor.bind(null, color, name)}
+              onClick={onChangeColor?.bind(null, name, color, colorName, index)}
             ></span>
           )
         })}
