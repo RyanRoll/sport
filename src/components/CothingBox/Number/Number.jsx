@@ -2,10 +2,13 @@ import React from 'react'
 
 import Navigation from '../Navigation'
 import Selector from '../Selector'
+import InputField from '../InputField'
+import DemoContext from '../../Demo/context'
 
 import styles from './styles/number.module.scss'
 
 export class Number extends React.Component {
+  static contextType = DemoContext
   state = {
     feature: 'style', // 'style' | 'color' | 'icon'
   }
@@ -54,10 +57,17 @@ export class Number extends React.Component {
     )
   }
   renderNumber = () => {
+    const { skinData } = this.context
     return (
       <>
         <h1 className={styles.title}>番号のフォントを選択してください</h1>
-        <div className={styles.content}>Number</div>
+        <div className={styles.content}>
+          <InputField
+            title="番号"
+            defaultValue={skinData.number.numberValue ?? 10}
+            onChange={this.onChangeNumber}
+          />
+        </div>
       </>
     )
   }
@@ -149,6 +159,11 @@ export class Number extends React.Component {
         this.props.changeCategory('menu')
         break
     }
+  }
+  onChangeNumber = (value) => {
+    const { skinData, setSkinData } = this.context
+    skinData.number.numberValue = value
+    setSkinData(skinData)
   }
 }
 
