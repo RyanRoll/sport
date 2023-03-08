@@ -2,12 +2,12 @@ import React from 'react'
 
 import Navigation from '../Navigation'
 import Selector from '../Selector'
-import { teamNameItems } from './data'
+import { badgeItems } from './data'
 import DemoContext from '../../Demo/context'
 
-import styles from './styles/teamName.module.scss'
+import styles from './styles/badge.module.scss'
 
-export class TeamName extends React.Component {
+export class Badge extends React.Component {
   static contextType = DemoContext
   state = {
     feature: 'style', // 'style' | 'color' | 'icon'
@@ -36,7 +36,7 @@ export class TeamName extends React.Component {
           <i className={styles.icon}></i>
         </h1>
         <div className={styles.content}>
-          <Selector dataKey="teamName.style" items={teamNameItems} />
+          <Selector dataKey="Badge.style" items={badgeItems} />
         </div>
       </>
     )
@@ -57,11 +57,11 @@ export class TeamName extends React.Component {
       default:
         this.props.changeCategory('menu')
         const { skinData, setSkinData } = this.context
-        skinData.teamName.done = true
+        skinData.badge.done = true
         setSkinData(skinData)
         break
     }
   }
 }
 
-export default TeamName
+export default Badge

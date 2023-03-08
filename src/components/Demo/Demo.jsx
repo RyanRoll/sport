@@ -11,6 +11,9 @@ export class Demo extends React.Component {
       pants: {},
       teamName: {},
       number: {},
+      nameperson: {},
+      badge: {},
+      socks: {},
     },
   }
   constructor(props) {

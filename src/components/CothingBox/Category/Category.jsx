@@ -28,7 +28,7 @@ export class Category extends React.Component {
       icon: OBJECT_ICONS[2],
     },
     {
-      name: 'team-name',
+      name: 'teamName',
       id: 3,
       label: 'チーム名',
       icon: OBJECT_ICONS[3],
@@ -40,7 +40,7 @@ export class Category extends React.Component {
       icon: OBJECT_ICONS[4],
     },
     {
-      name: 'name',
+      name: 'nameperson',
       id: 5,
       label: '番背・個人名号',
       icon: OBJECT_ICONS[5],
